@@ -1,10 +1,13 @@
 ﻿using calc;
 
+args = new[] { "5+5*sin(pi)" };
+
 if (args.Length != 1)
 {
     Console.WriteLine("Invalid number of arguments");
     return;
 }
+
 
 TextReader tr = new StringReader(args[0]);
 

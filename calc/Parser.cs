@@ -107,10 +107,13 @@ internal class Parser
     IExpression ParseBinaryExpression(int lp, IExpression le)
     {
         if (Cur != Token.Operator || !Symbols.HasBinary(CurStr))
-            return Error(Severity.Error, "Expected a binary operator");
+            return le;
 
         while (true)
         {
+            if (Cur == Token.Eof)
+                return le;
+
             var op = Symbols.Binary[CurStr];
 
             if (Cur != Token.Operator || !Symbols.HasBinary(CurStr) || op < lp)
