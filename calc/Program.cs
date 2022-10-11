@@ -1,7 +1,10 @@
 ﻿using calc;
 
 if (args.Length != 1)
+{
     Console.WriteLine("Invalid number of arguments");
+    return;
+}
 
 TextReader tr = new StringReader(args[0]);
 
@@ -11,7 +14,7 @@ SymbolTable sym = new();
 
 sym.AddConstants(
     ("pi", Math.PI),
-    ("e", Math.E)
+    ("e",  Math.E)
 );
 
 sym.AddUnary(
