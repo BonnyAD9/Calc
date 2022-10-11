@@ -1,6 +1,6 @@
 ﻿using calc;
 
-args = new[] { "5+5*sin(pi)" };
+//args = new[] { "5+5*sin(pi)" };
 
 if (args.Length != 1)
 {
