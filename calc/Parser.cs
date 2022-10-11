@@ -106,7 +106,7 @@ internal class Parser
 
     IExpression ParseBinaryExpression(int lp, IExpression le)
     {
-        if (Cur != Token.Operator || !Symbols.HasBinary(CurStr))
+        if (Cur is not Token.Operator and not Token.Upper || !Symbols.HasBinary(CurStr))
             return le;
 
         while (true)
@@ -116,7 +116,7 @@ internal class Parser
 
             var op = Symbols.Binary[CurStr];
 
-            if (Cur != Token.Operator || !Symbols.HasBinary(CurStr) || op < lp)
+            if (Cur is not Token.Operator and not Token.Upper || !Symbols.HasBinary(CurStr) || op < lp)
                 return le;
 
             NextToken();
@@ -124,7 +124,7 @@ internal class Parser
             if (re == Expr.Null)
                 return Expr.Null;
 
-            if (Cur == Token.Operator && Symbols.HasBinary(CurStr) && op < Symbols.Binary[CurStr])
+            if (Cur is not Token.Operator and not Token.Upper && Symbols.HasBinary(CurStr) && op < Symbols.Binary[CurStr])
             {
                 re = ParseBinaryExpression(op.Precedence, re);
                 if (re == Expr.Null)
