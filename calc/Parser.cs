@@ -111,9 +111,6 @@ internal class Parser
 
         while (Cur != Token.Eof && Cur is Token.Operator or Token.Upper && Symbols.HasBinary(CurStr))
         {
-            if (Cur == Token.Eof)
-                return le;
-
             var op = Symbols.Binary[CurStr];
 
             if (op < lp)
@@ -124,7 +121,7 @@ internal class Parser
             if (re == Expr.Null)
                 return Expr.Null;
 
-            if (Cur is Token.Operator or Token.Upper && Symbols.HasBinary(CurStr) && op < Symbols.Binary[CurStr])
+            if (op < CurPrecedence())
             {
                 re = ParseBinaryExpression(op.Precedence, re);
                 if (re == Expr.Null)
@@ -149,6 +146,8 @@ internal class Parser
         if (e == Expr.Null)
             return Expr.Null;
 
+        e = ParseBinaryExpression(Symbols.UnaryPrecedence, e);
+
         return new UnaryExpression(e, op);
     }
 
@@ -162,6 +161,8 @@ internal class Parser
         Console.WriteLine(message);
         return new NullExpressoin();
     }
+
+    int CurPrecedence() => Cur is Token.Operator or Token.Upper && Symbols.HasBinary(CurStr) ? Symbols.Binary[CurStr].Precedence : -1;
 
     Token NextToken() => _cur = _lexer.Next();
 }

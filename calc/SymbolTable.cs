@@ -2,6 +2,7 @@
 
 internal class SymbolTable
 {
+    public int UnaryPrecedence { get; init; } = int.MaxValue;
     public Dictionary<string, double> Constants { get; } = new();
     public Dictionary<string, UnaryOperator> Unary { get; } = new();
     public Dictionary<string, BinaryOperator> Binary { get; } = new();

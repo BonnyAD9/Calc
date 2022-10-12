@@ -1,6 +1,6 @@
 ﻿using calc;
 
-//args = new[] { "2^2" };
+// args = new[] { "2*-3^2" };
 
 if (args.Length != 1)
 {
@@ -13,7 +13,7 @@ TextReader tr = new StringReader(args[0]);
 
 Lexer lex = new(tr);
 
-SymbolTable sym = new();
+SymbolTable sym = new() { UnaryPrecedence = 30 };
 
 sym.AddConstants(
     ("pi", Math.PI),
