@@ -124,7 +124,7 @@ internal class Parser
             if (re == Expr.Null)
                 return Expr.Null;
 
-            if (Cur is not Token.Operator and not Token.Upper && Symbols.HasBinary(CurStr) && op < Symbols.Binary[CurStr])
+            if (Cur is Token.Operator or Token.Upper && Symbols.HasBinary(CurStr) && op < Symbols.Binary[CurStr])
             {
                 re = ParseBinaryExpression(op.Precedence, re);
                 if (re == Expr.Null)
