@@ -109,14 +109,14 @@ internal class Parser
         if (Cur is not Token.Operator and not Token.Upper || !Symbols.HasBinary(CurStr))
             return le;
 
-        while (true)
+        while (Cur != Token.Eof && Cur is Token.Operator or Token.Upper && Symbols.HasBinary(CurStr))
         {
             if (Cur == Token.Eof)
                 return le;
 
             var op = Symbols.Binary[CurStr];
 
-            if (Cur is not Token.Operator and not Token.Upper || !Symbols.HasBinary(CurStr) || op < lp)
+            if (op < lp)
                 return le;
 
             NextToken();
@@ -133,6 +133,8 @@ internal class Parser
             
             le = new BinaryExpression(le, re, op);
         }
+
+        return le;
     }
 
     IExpression ParseUnaryExpression()
