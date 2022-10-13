@@ -5,7 +5,7 @@ namespace calc;
 internal class SymbolTable
 {
     public Dictionary<string, double> Constants { get; } = new();
-    public Dictionary<string, UnaryOperator> Unary { get; } = new();
+    public Dictionary<string, IUnaryOperator> Unary { get; } = new();
     public Dictionary<string, BinaryOperator> Binary { get; } = new();
 
     public bool HasConstant(string name) => Constants.ContainsKey(name);
@@ -18,7 +18,7 @@ internal class SymbolTable
             Constants[name] = value;
     }
 
-    public void AddUnary(params UnaryOperator[] values)
+    public void AddUnary(params IUnaryOperator[] values)
     {
         foreach (var v in values)
             Unary[v.Name] = v;

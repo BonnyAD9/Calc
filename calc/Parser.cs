@@ -1,4 +1,5 @@
 ﻿using calc.AST;
+using calc.Operators;
 using System.Reflection.Metadata.Ecma335;
 
 namespace calc;
@@ -104,6 +105,15 @@ internal class Parser
         return new UnaryExpression(e, Symbols.Unary["abs"]);
     }
 
+    IExpression ParseBinaryExpression(int lp)
+    {
+        var e = ParsePrimaryExpression();
+        if (e == Expr.Null)
+            return Expr.Null;
+
+        return ParseBinaryExpression(lp, e);
+    }
+
     IExpression ParseBinaryExpression(int lp, IExpression le)
     {
         if (Cur is not Token.Operator and not Token.Upper || !Symbols.HasBinary(CurStr))
@@ -141,14 +151,32 @@ internal class Parser
 
         var op = Symbols.Unary[CurStr];
         NextToken();
-        
-        var e = ParsePrimaryExpression();
+
+        if (Cur == Token.Upper)
+            return op is IUnaryOperatorU opu
+                ? ParseUnaryUExpression(opu)
+                : Error(Severity.Error, $"Operator '{op.Name}' doesn't accept upper index");
+
+        var e = ParseBinaryExpression(op.Precedence);
         if (e == Expr.Null)
             return Expr.Null;
 
-        e = ParseBinaryExpression(op.Precedence, e);
-
         return new UnaryExpression(e, op);
+    }
+
+    IExpression ParseUnaryUExpression(IUnaryOperatorU op)
+    {
+        NextToken();
+        
+        var u = ParsePrimaryExpression();
+        if (u == Expr.Null)
+            return Expr.Null;
+
+        var a = ParseBinaryExpression(op.Precedence);
+        if (a == Expr.Null)
+            return Expr.Null;
+
+        return new UnaryExpressionU(a, u, op);
     }
 
     IExpression ParseSetExpression()
