@@ -22,7 +22,10 @@ internal class Parser
     public IExpression Parse()
     {
         NextToken();
-        return ParseExpression();
+        var e = ParseExpression();
+        if (Cur != Token.Eof)
+            Error(Severity.Warning, "Some input at the end has not been consumed");
+        return e;
     }
 
     IExpression ParseExpression()

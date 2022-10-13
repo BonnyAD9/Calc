@@ -1,7 +1,7 @@
 ﻿using calc;
 using calc.Operators;
 
-args = new[] { "sin^-1(1)*2" };
+// args = new[] { "sin^-1(1)*2" };
 
 if (args.Length != 1)
 {
