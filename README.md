@@ -2,7 +2,9 @@
 CLI Calculator
 
 ## Usage
+```
 calc <expression>
+```
 
 ## Support
 ### Constants
