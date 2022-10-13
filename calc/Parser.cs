@@ -146,7 +146,7 @@ internal class Parser
         if (e == Expr.Null)
             return Expr.Null;
 
-        e = ParseBinaryExpression(Symbols.UnaryPrecedence, e);
+        e = ParseBinaryExpression(op.Precedence, e);
 
         return new UnaryExpression(e, op);
     }

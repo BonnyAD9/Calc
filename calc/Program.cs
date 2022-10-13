@@ -13,7 +13,7 @@ TextReader tr = new StringReader(args[0]);
 
 Lexer lex = new(tr);
 
-SymbolTable sym = new() { UnaryPrecedence = 30 };
+SymbolTable sym = new() { };
 
 sym.AddConstants(
     ("pi", Math.PI),
@@ -21,14 +21,14 @@ sym.AddConstants(
 );
 
 sym.AddUnary(
-    new("-", a => -a),
-    new("abs",  a => Math.Abs(a)),
-    new("sin",  a => Math.Sin(a)),
-    new("cos",  a => Math.Cos(a)),
-    new("tan",  a => Math.Tan(a)),
-    new("acos", a => Math.Acos(a)),
-    new("asin", a => Math.Asin(a)),
-    new("sqrt", a => Math.Sqrt(a))
+    new("-",    20, a => -a),
+    new("abs",  30, a => Math.Abs(a)),
+    new("sin",  30, a => Math.Sin(a)),
+    new("cos",  30, a => Math.Cos(a)),
+    new("tan",  30, a => Math.Tan(a)),
+    new("acos", 30, a => Math.Acos(a)),
+    new("asin", 30, a => Math.Asin(a)),
+    new("sqrt", 30, a => Math.Sqrt(a))
 );
 
 sym.AddBinary(
