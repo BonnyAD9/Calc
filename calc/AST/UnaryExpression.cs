@@ -1,4 +1,6 @@
-﻿namespace calc.AST;
+﻿using calc.Operators;
+
+namespace calc.AST;
 
 internal class UnaryExpression : IExpression
 {

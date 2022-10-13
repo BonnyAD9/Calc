@@ -1,4 +1,4 @@
-﻿namespace calc;
+﻿namespace calc.Operators;
 
 internal class BinaryOperator
 {

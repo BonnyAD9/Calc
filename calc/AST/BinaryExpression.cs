@@ -1,4 +1,6 @@
-﻿namespace calc.AST;
+﻿using calc.Operators;
+
+namespace calc.AST;
 
 internal class BinaryExpression : IExpression
 {
@@ -7,7 +9,7 @@ internal class BinaryExpression : IExpression
 
     public BinaryOperator Operator { get; init; }
 
-    public BinaryExpression(IExpression left, IExpression right, calc.BinaryOperator @operator)
+    public BinaryExpression(IExpression left, IExpression right, BinaryOperator @operator)
     {
         Left = left;
         Right = right;

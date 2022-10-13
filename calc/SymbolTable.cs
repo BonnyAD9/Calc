@@ -1,4 +1,6 @@
-﻿namespace calc;
+﻿using calc.Operators;
+
+namespace calc;
 
 internal class SymbolTable
 {
