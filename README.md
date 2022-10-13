@@ -16,8 +16,10 @@ calc <expression>
 - `abs` - absolute value
 - `sin` - sinus
 - `cos` - cosinus
+- `tan` - tangens
 - `acos` - inverse cosinus
 - `asin` - inverse sinus
+- `atan` - invers tangens
 - `sqrt` - square root
 
 ### Binary operators
@@ -28,3 +30,14 @@ calc <expression>
 - `/` - division
 - `rt` - root (2 rt a=sqrt(a))
 - `^` - power
+
+### Indexing
+- `^` - upper index
+
+## Upper index behaviour
+### Goniometric functions
++  `sin`, `cos`, `tan`, `asin`, `acos`, `atan`
+- `fun^1(a)` = `fun(a)`
+- `fun^b(a)` = `(fun(a))^b`
+- `fun^-1(a)` = `afun(a)`
+- `afun^-1(a)` = `fun(a)`
