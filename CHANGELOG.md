@@ -4,3 +4,5 @@
 - Support upper index for unary operators
 - Goniometric functions can have upper index
 - Add warning when some input has not been consumed
+- Messages now show severity and token position
+- Result is not displayed when an error occurs
