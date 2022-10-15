@@ -180,6 +180,11 @@ internal class Parser
         if (u == Expr.Null)
             return Expr.Null;
 
+        if (Cur == Token.Lower)
+            return op is IUnaryOperatorLU oplu
+                ? ParseUnaryLUExpression(oplu, Expr.Null, u)
+                : Error(Severity.Error, $"Operator '{op.Name}' doesn't accept both upper and lower index");
+
         var a = ParseBinaryExpression(op.Precedence);
         if (a == Expr.Null)
             return Expr.Null;
@@ -195,11 +200,35 @@ internal class Parser
         if (l == Expr.Null)
             return Expr.Null;
 
+        if (Cur == Token.Upper)
+            return op is IUnaryOperatorLU oplu
+                ? ParseUnaryLUExpression(oplu, l, Expr.Null)
+                : Error(Severity.Error, $"Operator '{op.Name}' doesn't accept both lower and upper index");
+
         var a = ParseBinaryExpression(op.Precedence);
         if (a == Expr.Null)
             return Expr.Null;
 
         return new UnaryExpressionL(a, l, op);
+    }
+
+    IExpression ParseUnaryLUExpression(IUnaryOperatorLU op, IExpression l, IExpression u)
+    {
+        NextToken();
+
+        ref IExpression lu = ref u;
+        if (l == Expr.Null)
+            lu = ref l;
+
+        lu = ParsePrimaryExpression();
+        if (lu == Expr.Null)
+            return Expr.Null;
+
+        var a = ParseBinaryExpression(op.Precedence);
+        if (a == Expr.Null)
+            return Expr.Null;
+
+        return new UnaryExpressionLU(a, l, u, op);
     }
 
     IExpression ParseSetExpression()

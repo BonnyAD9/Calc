@@ -2,7 +2,7 @@
 using calc.AST;
 using calc.Operators;
 
-// args = new[] { "log_2.5(2.5)" };
+// args = new[] { "log(10)" };
 
 if (args.Length != 1)
 {
@@ -23,13 +23,17 @@ sym.AddConstants(
 );
 
 sym.AddUnary(
+    // No index unary operators
     new UnaryOperator("-",    20, a => -a),
     new UnaryOperator("abs",  30, a => Math.Abs(a)),
     new UnaryOperator("sqrt", 30, a => Math.Sqrt(a)),
-    new UnaryOperator("ln",   30, a => Math.Log(a)),
-    new UnaryOperator("lb",   30, a => Math.Log2(a)),
 
-    new UnaryOperatorL("log", 30, (a, l) => l.HasValue ? Math.Log(a, l.Value) : Math.Log10(a)),
+    // Lower and upper index unary operators
+    new UnaryOperatorLU("log", 30, UnaryOperatorLU.MakeFun.UPower((a, l) => l.HasValue ? Math.Log(a, l.Value) : Math.Log10(a))),
+
+    // upper index unary operators
+    new UnaryOperatorU("ln", 30, (a, u) => u.HasValue ? Math.Pow(Math.Log(a), u.Value) : Math.Log(a)),
+    new UnaryOperatorU("lb", 30, (a, u) => u.HasValue ? Math.Pow(Math.Log2(a), u.Value) : Math.Log(a)),
 
     new UnaryOperatorU("sin", 30, (a, u) => u switch
     {
