@@ -43,7 +43,7 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 - `tan^` - tangens
 - `acos^` - inverse cosinus
 - `asin^` - inverse sinus
-- `atan^` - invers tangens
+- `atan^` - inverse tangens
 - `sqrt` - square root
 - `log_^` - logarithm (base 10 with no lower index)
 - `ln^` - natural logarithm
@@ -55,7 +55,7 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 - `*` - multiplication
 - `*-` - multiplication by negation
 - `/` - division
-- `rt` - root (2 rt a=sqrt(a))
+- `rt` - root (`2 rt a`=`sqrt(a)`)
 - `^` - power
 
 ### Indexing
