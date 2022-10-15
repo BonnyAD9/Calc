@@ -45,7 +45,7 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 - `asin^` - inverse sinus
 - `atan^` - invers tangens
 - `sqrt` - square root
-- `log_^` - base 10 logarithm
+- `log_^` - logarithm (base 10 with no lower index)
 - `ln^` - natural logarithm
 - `lb^` - binary logarithm
 
