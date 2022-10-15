@@ -25,6 +25,9 @@ calc <expression>
 - `asin` - inverse sinus
 - `atan` - invers tangens
 - `sqrt` - square root
+- `log` - base 10 logarithm
+- `ln` - natural logarithm
+- `lb` - binary logarithm
 
 ### Binary operators
 - `+` - addition
