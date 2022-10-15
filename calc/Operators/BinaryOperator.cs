@@ -31,4 +31,6 @@ internal class BinaryOperator
     public override bool Equals(object? obj) => obj is BinaryOperator o && o.Name == Name && o.Precedence == Precedence;
 
     public override int GetHashCode() => Name.GetHashCode() ^ Precedence.GetHashCode();
+
+    public override string ToString() => Name;
 }

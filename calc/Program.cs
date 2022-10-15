@@ -54,7 +54,4 @@ sym.AddBinary(
 
 Parser par = new(lex, sym);
 
-var res = par.Parse();
-if (res == Expr.Null)
-    return;
-Console.WriteLine(res.GetValue());
+Console.WriteLine(par.Parse());

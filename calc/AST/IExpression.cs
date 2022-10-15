@@ -2,5 +2,5 @@
 
 internal interface IExpression
 {
-    public double GetValue();
+    public IExpression GetValue(IDictionary<string, IExpression> vals);
 }

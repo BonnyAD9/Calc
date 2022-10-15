@@ -16,5 +16,8 @@ internal class BinaryExpression : IExpression
         Operator = @operator;
     }
 
-    public double GetValue() => Operator.Evaluate(Left.GetValue(), Right.GetValue());
+    public IExpression GetValue(IDictionary<string, IExpression> vals) =>
+        Expr.Binary(Operator, Left.GetValue(vals), Right.GetValue(vals));
+
+    public override string ToString() => $"({Left}){Operator}({Right})";
 }
