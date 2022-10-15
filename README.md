@@ -7,6 +7,10 @@ calc <expression>
 ```
 
 ## Support
+### Brackets
+- use brackets (`(` and `)`) to guide the parser
+- use `[` and `]` for absolute value and to guide the parser
+
 ### Constants
 - `pi` - 3.141592653589793
 - `e` - 2.718281828459045
