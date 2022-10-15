@@ -6,6 +6,22 @@ CLI Calculator
 calc <expression>
 ```
 
+## Examples
+```shell
+> calc "5+5*5"
+30
+> calc "(5+5)*5"
+50
+> calc "asin(1)+sin^-1(1)"
+3.141592653589793
+> calc "log_3^-1(9)"
+0.5
+> calc "log_3(9)^-1"
+-2
+```
+- the two last examples have different results because `^` has larger precedence than `log`
+so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the same as `log_3(9^-1)`
+
 ## Support
 - `_` after operator name means that it supports lower index
 - `^` after operator name means that it supports upper index
