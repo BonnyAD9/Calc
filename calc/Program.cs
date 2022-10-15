@@ -1,5 +1,4 @@
 ﻿using calc;
-using calc.AST;
 using calc.Operators;
 
 // args = new[] { "sin^2(1)+cos^2(1)" };
