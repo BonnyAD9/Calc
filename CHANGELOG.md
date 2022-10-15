@@ -1,5 +1,5 @@
 # Changelog
-## v1.2.0 (not released yet)
+## v1.1.0
 - New unary operators: `atan`, `log`, `ln`, `lb`
 - Support indexes for unary operators
 - Goniometric and logarithmic functions can have upper index
