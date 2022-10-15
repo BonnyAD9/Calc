@@ -2,7 +2,7 @@
 using calc.AST;
 using calc.Operators;
 
-// args = new[] { "log(10)" };
+// args = new[] { "sin^2(1)+cos^2(1)" };
 
 if (args.Length != 1)
 {
@@ -32,50 +32,14 @@ sym.AddUnary(
     new UnaryOperatorLU("log", 30, UnaryOperatorLU.MakeFun.UPower((a, l) => l.HasValue ? Math.Log(a, l.Value) : Math.Log10(a))),
 
     // upper index unary operators
-    new UnaryOperatorU("ln", 30, (a, u) => u.HasValue ? Math.Pow(Math.Log(a), u.Value) : Math.Log(a)),
-    new UnaryOperatorU("lb", 30, (a, u) => u.HasValue ? Math.Pow(Math.Log2(a), u.Value) : Math.Log(a)),
-
-    new UnaryOperatorU("sin", 30, (a, u) => u switch
-    {
-        null => Math.Sin(a),
-        -1   => Math.Asin(a),
-        _    => Math.Pow(Math.Sin(a), u.Value),
-    }),
-
-    new UnaryOperatorU("cos", 30, (a, u) => u switch
-    {
-        null => Math.Cos(a),
-        -1   => Math.Acos(a),
-        _    => Math.Pow(Math.Cos(a), u.Value),
-    }),
-
-    new UnaryOperatorU("tan", 30, (a, u) => u switch
-    {
-        null => Math.Tan(a),
-        -1   => Math.Atan(a),
-        _    => Math.Pow(Math.Tan(a), u.Value),
-    }),
-
-    new UnaryOperatorU("asin", 30, (a, u) => u switch
-    {
-        null => Math.Asin(a),
-        -1   => Math.Sin(a),
-        _    => Math.Pow(Math.Asin(a), u.Value),
-    }),
-
-    new UnaryOperatorU("acos", 30, (a, u) => u switch
-    {
-        null => Math.Acos(a),
-        -1   => Math.Cos(a),
-        _    => Math.Pow(Math.Acos(a), u.Value),
-    }),
-
-    new UnaryOperatorU("atan", 30, (a, u) => u switch
-    {
-        null => Math.Atan(a),
-        -1   => Math.Tan(a),
-        _    => Math.Pow(Math.Atan(a), u.Value),
-    })
+    new UnaryOperatorU("ln",   30, (a, u) => u.HasValue ? Math.Pow(Math.Log(a), u.Value) : Math.Log(a)),
+    new UnaryOperatorU("lb",   30, (a, u) => u.HasValue ? Math.Pow(Math.Log2(a), u.Value) : Math.Log(a)),
+    new UnaryOperatorU("sin",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Sin,  Math.Asin)),
+    new UnaryOperatorU("cos",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Cos,  Math.Acos)),
+    new UnaryOperatorU("tan",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Tan,  Math.Atan)),
+    new UnaryOperatorU("asin", 30, UnaryOperatorU.MakeFun.Goniometric(Math.Asin, Math.Sin)),
+    new UnaryOperatorU("acos", 30, UnaryOperatorU.MakeFun.Goniometric(Math.Acos, Math.Cos)),
+    new UnaryOperatorU("atan", 30, UnaryOperatorU.MakeFun.Goniometric(Math.Atan, Math.Tan))
 );
 
 sym.AddBinary(

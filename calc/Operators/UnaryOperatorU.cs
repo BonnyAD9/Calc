@@ -17,4 +17,14 @@ internal class UnaryOperatorU : IUnaryOperatorU
 
     public double Evaluate(double a) => evaluate(a);
     public double Evaluate(double a, double u) => evaluate(a, u);
+
+    public static class MakeFun
+    {
+        public static EvalFun Goniometric(Func<double, double> f, Func<double, double> af) => (a, u) => u switch
+        {
+            null => f(a),
+            -1 => af(a),
+            _ => Math.Pow(f(a), u.Value),
+        };
+    }
 }
