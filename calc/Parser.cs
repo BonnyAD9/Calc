@@ -189,7 +189,7 @@ internal class Parser
 
     IExpression Error(Severity sev, string message)
     {
-        Console.WriteLine(message);
+        Logger.Instance.Log(message, sev, _lexer.TokenPosition);
         return new NullExpressoin();
     }
 

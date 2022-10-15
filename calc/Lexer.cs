@@ -11,9 +11,11 @@ internal class Lexer
     bool Eof => _eof;
     const string punctuation = "()[]{},;_^";
     readonly StringBuilder _string = new();
+    int col = 0;
+    int line = 1;
     public double NumberToken { get; private set; }
     public string StringToken { get; private set; } = "";
-
+    public FilePos TokenPosition { get; private set; }
 
     public Lexer(TextReader input)
     {
@@ -27,6 +29,8 @@ internal class Lexer
 
         if (Eof)
             return Token.Eof;
+
+        TokenPosition = new(line, col);
 
         if (char.IsDigit(Cur))
             return ReadNumber();
@@ -88,6 +92,12 @@ internal class Lexer
     {
         int c = _input.Read();
         _eof = c == -1;
+        col++;
+        if (c == '\n')
+        {
+            col = 0;
+            line++;
+        }
         return _cur = (char)c;
     }
 
