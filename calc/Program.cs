@@ -26,6 +26,9 @@ sym.AddUnary(
     new UnaryOperator("-",    20, a => -a),
     new UnaryOperator("abs",  30, a => Math.Abs(a)),
     new UnaryOperator("sqrt", 30, a => Math.Sqrt(a)),
+    new UnaryOperator("log",  30, a => Math.Log10(a)),
+    new UnaryOperator("ln",   30, a => Math.Log(a)),
+    new UnaryOperator("lg",   30, a => Math.Log2(a)),
 
     new UnaryOperatorU("sin", 30, (a, u) => u switch
     {
