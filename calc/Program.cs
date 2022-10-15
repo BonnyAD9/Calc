@@ -2,7 +2,7 @@
 using calc.AST;
 using calc.Operators;
 
-// args = new[] { "sin^-1(1)*2" };
+// args = new[] { "ln(e)" };
 
 if (args.Length != 1)
 {
@@ -28,7 +28,7 @@ sym.AddUnary(
     new UnaryOperator("sqrt", 30, a => Math.Sqrt(a)),
     new UnaryOperator("log",  30, a => Math.Log10(a)),
     new UnaryOperator("ln",   30, a => Math.Log(a)),
-    new UnaryOperator("lg",   30, a => Math.Log2(a)),
+    new UnaryOperator("lb",   30, a => Math.Log2(a)),
 
     new UnaryOperatorU("sin", 30, (a, u) => u switch
     {
