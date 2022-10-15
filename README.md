@@ -42,9 +42,21 @@ calc <expression>
 - `^` - upper index
 
 ## Upper index behaviour
+### Logarithmic functions
++ `log`, `ln`, `lg`
+- `fun^1(a)` = `fun(a)`
+- `fun^b(a)` = `(fun(a))^b`
+
 ### Goniometric functions
 +  `sin`, `cos`, `tan`, `asin`, `acos`, `atan`
 - `fun^1(a)` = `fun(a)`
 - `fun^b(a)` = `(fun(a))^b`
 - `fun^-1(a)` = `afun(a)`
 - `afun^-1(a)` = `fun(a)`
+
+## Lower index behaviour
+### log
+- `log_10(a)` = `log(a)`
+- `log_e(a)` = `ln(a)`
+- `log_2(a)` = `lb(a)`
+- `log_b(a)` = logarithm of base b of a
