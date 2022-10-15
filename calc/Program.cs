@@ -25,15 +25,15 @@ sym.AddConstants(
 sym.AddUnary(
     // No index unary operators
     new UnaryOperator("-",    20, a => -a),
-    new UnaryOperator("abs",  30, a => Math.Abs(a)),
-    new UnaryOperator("sqrt", 30, a => Math.Sqrt(a)),
+    new UnaryOperator("abs",  30, Math.Abs),
+    new UnaryOperator("sqrt", 30, Math.Sqrt),
 
     // Lower and upper index unary operators
     new UnaryOperatorLU("log", 30, UnaryOperatorLU.MakeFun.UPower((a, l) => l.HasValue ? Math.Log(a, l.Value) : Math.Log10(a))),
 
     // upper index unary operators
-    new UnaryOperatorU("ln",   30, (a, u) => u.HasValue ? Math.Pow(Math.Log(a), u.Value) : Math.Log(a)),
-    new UnaryOperatorU("lb",   30, (a, u) => u.HasValue ? Math.Pow(Math.Log2(a), u.Value) : Math.Log(a)),
+    new UnaryOperatorU("ln",   30, UnaryOperatorU.MakeFun.Power(Math.Log)),
+    new UnaryOperatorU("lb",   30, UnaryOperatorU.MakeFun.Power(Math.Log2)),
     new UnaryOperatorU("sin",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Sin,  Math.Asin)),
     new UnaryOperatorU("cos",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Cos,  Math.Acos)),
     new UnaryOperatorU("tan",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Tan,  Math.Atan)),
@@ -49,7 +49,7 @@ sym.AddBinary(
     new("*-", 20, (a, b) => a * -b),
     new("/",  20, (a, b) => a / b),
     new("rt", 40, (a, b) => Math.Pow(b, 1 / a)),
-    new("^",  40, (a, b) => Math.Pow(a, b))
+    new("^",  40, Math.Pow)
 );
 
 Parser par = new(lex, sym);
