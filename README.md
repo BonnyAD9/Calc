@@ -21,6 +21,7 @@ calc <expression>
 ```
 - the two last examples have different results because `^` has larger precedence than `log`
 so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the same as `log_3(9^-1)`
+- brackets in the last three examples are optional so `asin1+sin^-1 1`, `log_3^-1 9` and `log_3 9^-1` have the same meaning
 
 ## Support
 - `_` after operator name means that it supports lower index
