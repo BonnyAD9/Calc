@@ -1,11 +1,12 @@
 ﻿using calc;
+using calc.AST;
 using calc.Operators;
 
 // args = new[] { "sin^-1(1)*2" };
 
 if (args.Length != 1)
 {
-    Console.WriteLine("Invalid number of arguments");
+    Logger.Instance.Log("Invalid number of arguments", Severity.Error);
     return;
 }
 
@@ -81,4 +82,7 @@ sym.AddBinary(
 
 Parser par = new(lex, sym);
 
-Console.WriteLine(par.Parse().GetValue());
+var res = par.Parse();
+if (res == Expr.Null)
+    return;
+Console.WriteLine(res.GetValue());
