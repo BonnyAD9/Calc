@@ -7,6 +7,9 @@ calc <expression>
 ```
 
 ## Support
+- `_` after operator name means that it supports lower index
+- `^` after operator name means that it supports upper index
+
 ### Brackets
 - use brackets (`(` and `)`) to guide the parser
 - use `[` and `]` for absolute value and to guide the parser
@@ -18,16 +21,16 @@ calc <expression>
 ### Unary operators
 - `-` - negation
 - `abs` - absolute value
-- `sin` - sinus
-- `cos` - cosinus
-- `tan` - tangens
-- `acos` - inverse cosinus
-- `asin` - inverse sinus
-- `atan` - invers tangens
+- `sin^` - sinus
+- `cos^` - cosinus
+- `tan^` - tangens
+- `acos^` - inverse cosinus
+- `asin^` - inverse sinus
+- `atan^` - invers tangens
 - `sqrt` - square root
-- `log` - base 10 logarithm
-- `ln` - natural logarithm
-- `lb` - binary logarithm
+- `log_^` - base 10 logarithm
+- `ln^` - natural logarithm
+- `lb^` - binary logarithm
 
 ### Binary operators
 - `+` - addition
@@ -40,6 +43,7 @@ calc <expression>
 
 ### Indexing
 - `^` - upper index
+- `_` - lower index
 
 ## Upper index behaviour
 ### Logarithmic functions
