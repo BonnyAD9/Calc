@@ -160,6 +160,11 @@ internal class Parser
                 ? ParseUnaryUExpression(opu)
                 : Error(Severity.Error, $"Operator '{op.Name}' doesn't accept upper index");
 
+        if (Cur == Token.Lower)
+            return op is IUnaryOperatorL opl
+                ? ParseUnaryLExpression(opl)
+                : Error(Severity.Error, $"Operator '{op.Name}' doesn't accept lower index");
+
         var e = ParseBinaryExpression(op.Precedence);
         if (e == Expr.Null)
             return Expr.Null;
@@ -182,9 +187,24 @@ internal class Parser
         return new UnaryExpressionU(a, u, op);
     }
 
+    IExpression ParseUnaryLExpression(IUnaryOperatorL op)
+    {
+        NextToken();
+
+        var l = ParsePrimaryExpression();
+        if (l == Expr.Null)
+            return Expr.Null;
+
+        var a = ParseBinaryExpression(op.Precedence);
+        if (a == Expr.Null)
+            return Expr.Null;
+
+        return new UnaryExpressionL(a, l, op);
+    }
+
     IExpression ParseSetExpression()
     {
-        throw new NotImplementedException();
+        return Error(Severity.Error, "Sets are not supported");
     }
 
     IExpression Error(Severity sev, string message)
