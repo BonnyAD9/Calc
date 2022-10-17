@@ -16,4 +16,6 @@ internal class UnaryOperator : IUnaryOperator
     public double Evaluate(double a) => evaluate(a);
     public override bool Equals(object? obj) => obj is UnaryOperator other && other.Precedence == Precedence && other.Name == Name;
     public override int GetHashCode() => Name.GetHashCode() ^ Precedence.GetHashCode();
+
+    public override string ToString() => Name;
 }

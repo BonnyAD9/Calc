@@ -60,7 +60,7 @@ internal class Parser
 
     IExpression ParseNumberExpression()
     {
-        ConstantExpression e = new(CurNum);
+        var e = Expr.Constant(CurNum);
         NextToken();
         return e;
     }
@@ -72,7 +72,7 @@ internal class Parser
 
         var c = Symbols.Constants[CurStr];
         NextToken();
-        return new ConstantExpression(c);
+        return Expr.Constant(Symbols.Constants[CurStr]);
     }
 
     IExpression ParseBracketExpression()
@@ -105,7 +105,7 @@ internal class Parser
             return Error(Severity.Error, "Expected ']'");
 
         NextToken();
-        return new UnaryExpression(e, Symbols.Unary["abs"]);
+        return Expr.Unary(Symbols.Unary["abs"], e);
     }
 
     IExpression ParseBinaryExpression(int lp)
@@ -140,8 +140,8 @@ internal class Parser
                 if (re == Expr.Null)
                     return Expr.Null;
             }
-            
-            le = new BinaryExpression(le, re, op);
+
+            le = Expr.Binary(op, le, re);
         }
 
         return le;
@@ -169,7 +169,7 @@ internal class Parser
         if (e == Expr.Null)
             return Expr.Null;
 
-        return new UnaryExpression(e, op);
+        return Expr.Unary(op, e);
     }
 
     IExpression ParseUnaryUExpression(IUnaryOperatorU op)
@@ -189,7 +189,7 @@ internal class Parser
         if (a == Expr.Null)
             return Expr.Null;
 
-        return new UnaryExpressionU(a, u, op);
+        return Expr.UnaryU(op, a, u);
     }
 
     IExpression ParseUnaryLExpression(IUnaryOperatorL op)
@@ -209,7 +209,7 @@ internal class Parser
         if (a == Expr.Null)
             return Expr.Null;
 
-        return new UnaryExpressionL(a, l, op);
+        return Expr.UnaryL(op, a, l);
     }
 
     IExpression ParseUnaryLUExpression(IUnaryOperatorLU op, IExpression l, IExpression u)
@@ -228,7 +228,7 @@ internal class Parser
         if (a == Expr.Null)
             return Expr.Null;
 
-        return new UnaryExpressionLU(a, l, u, op);
+        return Expr.UnaryLU(op, a, l, u);
     }
 
     IExpression ParseSetExpression()
@@ -239,7 +239,7 @@ internal class Parser
     IExpression Error(Severity sev, string message)
     {
         Logger.Instance.Log(message, sev, _lexer.TokenPosition);
-        return new NullExpressoin();
+        return Expr.Null;
     }
 
     int CurPrecedence() => Cur is Token.Operator or Token.Upper && Symbols.HasBinary(CurStr) ? Symbols.Binary[CurStr].Precedence : -1;

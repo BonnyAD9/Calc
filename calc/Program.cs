@@ -1,5 +1,4 @@
 ﻿using calc;
-using calc.AST;
 using calc.Operators;
 
 // args = new[] { "sin^2(1)+cos^2(1)" };
@@ -54,7 +53,4 @@ sym.AddBinary(
 
 Parser par = new(lex, sym);
 
-var res = par.Parse();
-if (res == Expr.Null)
-    return;
-Console.WriteLine(res.GetValue());
+Console.WriteLine(par.Parse());

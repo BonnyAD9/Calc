@@ -29,4 +29,6 @@ internal class UnaryOperatorU : IUnaryOperatorU
 
         public static EvalFun Power(Func<double, double> f) => (a, u) => u.HasValue ? Math.Pow(f(a), u.Value) : f(a);
     }
+
+    public override string ToString() => Name;
 }

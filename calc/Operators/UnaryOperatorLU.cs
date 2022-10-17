@@ -24,4 +24,6 @@ internal class UnaryOperatorLU : IUnaryOperatorLU
     {
         public static EvalFun UPower(UnaryOperatorL.EvalFun f) => (a, l, u) => u.HasValue ? Math.Pow(f(a, l), u.Value) : f(a, l);
     }
+
+    public override string ToString() => Name;
 }

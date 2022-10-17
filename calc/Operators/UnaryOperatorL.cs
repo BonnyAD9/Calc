@@ -17,4 +17,6 @@ internal class UnaryOperatorL : IUnaryOperatorL
 
     public double Evaluate(double a) => evaluate(a);
     public double Evaluate(double a, double l) => evaluate(a, l);
+
+    public override string ToString() => Name;
 }
