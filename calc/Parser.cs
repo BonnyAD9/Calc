@@ -22,10 +22,34 @@ internal class Parser
     public IExpression Parse()
     {
         NextToken();
-        var e = ParseExpression();
-        if (Cur != Token.Eof)
-            Error(Severity.Warning, "Some input at the end has not been consumed");
-        return e;
+        return _Parse();
+    }
+
+    private IExpression _Parse()
+    {
+        var e = ParseExpression().GetValue(Context);
+
+        if (Cur != Token.Semicolon)
+        {
+            if (Cur != Token.Eof)
+                Error(Severity.Warning, "Some input at the end has not been consumed");
+            return e;
+        }
+
+        NextToken();
+
+        if (e is not BinaryExpression be || be.Operator.Name != "=")
+            return _Parse();
+
+        if (be.Left is VariableExpression vel)
+            Context.SetVariable(vel.Name, be.Right);
+        else if (be.Right is VariableExpression ver)
+            Context.SetVariable(ver.Name, be.Left);
+
+        if (Cur == Token.Eof)
+            return e;
+
+        return _Parse();
     }
 
     IExpression ParseExpression()

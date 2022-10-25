@@ -1,7 +1,7 @@
 ﻿using calc;
 using calc.Operators;
 
-//args = new[] { "sin^2(x)+cos^2(x)" };
+//args = new[] { "x=5;x+x*x" };
 
 if (args.Length != 1)
 {
@@ -42,6 +42,7 @@ sym.AddUnary(
 );
 
 sym.AddBinary(
+    new("=",   1, Functions.Equals),
     new("+",  10, Functions.Numeric((a, b) => a + b)),
     new("-",  10, Functions.Numeric((a, b) => a - b)),
     new("*",  20, Functions.Numeric((a, b) => a * b)),

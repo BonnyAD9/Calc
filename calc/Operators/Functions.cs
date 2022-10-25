@@ -73,4 +73,10 @@ internal static class Functions
         (ConstantExpression, _, _) => Expr.Error(l, "Lower index of logarithm must be a number"),
         _ => Expr.Error(a, "Argument of logarithm must be a number")
     };
+
+    public static IExpression Equals(IExpression l, IExpression r) => (l, r) switch
+    {
+        (ConstantExpression cl, ConstantExpression cr) => Expr.Constant(cl.Value == cr.Value ? 1 : 0),
+        (_, _) => Expr.Constant(0),
+    };
 }

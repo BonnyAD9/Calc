@@ -22,4 +22,6 @@ internal class Context
     
     [return: NotNullIfNotNull("def")]
     public IExpression? GetVariableOrDefault(string name, IExpression? def = null) => Variables.GetValueOrDefault(name) ?? Next?.GetVariable(name) ?? def;
+
+    public void SetVariable(string name, IExpression value) => Variables[name] = value;
 }
