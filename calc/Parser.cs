@@ -1,6 +1,5 @@
 ﻿using calc.AST;
 using calc.Operators;
-using System.Reflection.Metadata.Ecma335;
 
 namespace calc;
 
@@ -12,6 +11,7 @@ internal class Parser
     double CurNum => _lexer.NumberToken;
     string CurStr => _lexer.StringToken;
     SymbolTable Symbols { get; init; }
+    public Context Context { get; } = new();
 
     public Parser(Lexer lexer, SymbolTable symbols)
     {
@@ -67,12 +67,12 @@ internal class Parser
 
     IExpression ParseOperatorExpression()
     {
-        if (!Symbols.HasConstant(CurStr))
+        if (Symbols.HasUnary(CurStr))
             return ParseUnaryExpression();
-
-        var c = Symbols.Constants[CurStr];
+;
+        var c = Symbols.HasConstant(CurStr) ? Symbols.Constants[CurStr] : Expr.Variable(CurStr);
         NextToken();
-        return Symbols.Constants[CurStr];
+        return c;
     }
 
     IExpression ParseBracketExpression()

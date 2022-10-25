@@ -11,7 +11,7 @@ internal class ErrorExpression : IExpression
         Message = message;
     }
 
-    public IExpression GetValue(IDictionary<string, IExpression> vals) => this;
+    public IExpression GetValue(Context context) => this;
 
     public override string ToString() => Message;
 }

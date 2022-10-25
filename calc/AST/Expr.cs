@@ -1,4 +1,5 @@
 ﻿using calc.Operators;
+using System.Linq.Expressions;
 
 namespace calc.AST;
 
@@ -35,4 +36,6 @@ internal static class Expr
 
     public static IExpression Error(IExpression source, string message) => new ErrorExpression(message);
     public static IExpression Error(IExpression source) => new ErrorExpression();
+
+    public static IExpression Variable(string name) => new VariableExpression(name);
 }

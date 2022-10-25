@@ -13,8 +13,8 @@ internal class UnaryExpression : IExpression
         Operator = @operator;
     }
 
-    public IExpression GetValue(IDictionary<string, IExpression> vals) =>
-        Expr.Unary(Operator, Arg.GetValue(vals));
+    public IExpression GetValue(Context context) =>
+        Expr.Unary(Operator, Arg.GetValue(context));
 
     public override string ToString() => $"{Operator}({Arg})";
 }

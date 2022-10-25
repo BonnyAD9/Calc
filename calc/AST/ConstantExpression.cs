@@ -9,7 +9,7 @@ internal class ConstantExpression : IExpression
         Value = value;
     }
 
-    public IExpression GetValue(IDictionary<string, IExpression> vals) => this;
+    public IExpression GetValue(Context context) => this;
 
     public override string ToString() => Value.ToString();
 }

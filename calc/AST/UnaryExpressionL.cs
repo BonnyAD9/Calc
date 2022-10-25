@@ -15,8 +15,8 @@ internal class UnaryExpressionL : IExpression
         Operator = @operator;
     }
 
-    public IExpression GetValue(IDictionary<string, IExpression> vals) =>
-        Expr.UnaryL(Operator, Arg.GetValue(vals), Lower.GetValue(vals));
+    public IExpression GetValue(Context context) =>
+        Expr.UnaryL(Operator, Arg.GetValue(context), Lower.GetValue(context));
 
     public override string ToString() => $"{Operator}_({Lower})({Arg})";
 }

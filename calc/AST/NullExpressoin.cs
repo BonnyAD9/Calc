@@ -2,7 +2,7 @@
 
 internal class NullExpressoin : IExpression
 {
-    public IExpression GetValue(IDictionary<string, IExpression> vals) => this;
+    public IExpression GetValue(Context context) => this;
 
     public static bool operator ==(IExpression l, NullExpressoin r) => l is NullExpressoin;
     public static bool operator !=(IExpression l, NullExpressoin r) => l is not NullExpressoin;

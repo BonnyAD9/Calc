@@ -2,5 +2,5 @@
 
 internal interface IExpression
 {
-    public IExpression GetValue(IDictionary<string, IExpression> vals);
+    public IExpression GetValue(Context context);
 }
