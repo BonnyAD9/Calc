@@ -1,22 +1,22 @@
-﻿namespace calc.Operators;
+﻿using calc.AST;
+
+namespace calc.Operators;
 
 internal class UnaryOperatorL : IUnaryOperatorL
 {
     public string Name { get; init; }
     public int Precedence { get; init; }
-    readonly EvalFun evaluate;
+    readonly Func<IExpression, IExpression, IExpression> evaluate;
 
-    public delegate double EvalFun(double a, double? l = null);
-
-    public UnaryOperatorL(string name, int precedence, EvalFun evaluate)
+    public UnaryOperatorL(string name, int precedence, Func<IExpression, IExpression, IExpression> evaluate)
     {
         Name = name;
         Precedence = precedence;
         this.evaluate = evaluate;
     }
 
-    public double Evaluate(double a) => evaluate(a);
-    public double Evaluate(double a, double l) => evaluate(a, l);
+    public IExpression Evaluate(IExpression a) => evaluate(a, Expr.Null);
+    public IExpression Evaluate(IExpression a, IExpression l) => evaluate(a, l);
 
     public override string ToString() => Name;
 }

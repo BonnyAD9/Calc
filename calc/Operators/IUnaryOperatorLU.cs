@@ -1,6 +1,8 @@
-﻿namespace calc.Operators;
+﻿using calc.AST;
+
+namespace calc.Operators;
 
 internal interface IUnaryOperatorLU : IUnaryOperatorL, IUnaryOperatorU
 {
-    public double Evaluate(double a, double l, double u);
+    public IExpression Evaluate(IExpression a, IExpression l, IExpression u);
 }

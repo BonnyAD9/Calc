@@ -72,7 +72,7 @@ internal class Parser
 
         var c = Symbols.Constants[CurStr];
         NextToken();
-        return Expr.Constant(Symbols.Constants[CurStr]);
+        return Symbols.Constants[CurStr];
     }
 
     IExpression ParseBracketExpression()

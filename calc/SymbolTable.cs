@@ -1,10 +1,11 @@
-﻿using calc.Operators;
+﻿using calc.AST;
+using calc.Operators;
 
 namespace calc;
 
 internal class SymbolTable
 {
-    public Dictionary<string, double> Constants { get; } = new();
+    public Dictionary<string, IExpression> Constants { get; } = new();
     public Dictionary<string, IUnaryOperator> Unary { get; } = new();
     public Dictionary<string, BinaryOperator> Binary { get; } = new();
 
@@ -12,7 +13,7 @@ internal class SymbolTable
     public bool HasUnary(string name) => Unary.ContainsKey(name);
     public bool HasBinary(string name) => Binary.ContainsKey(name);
 
-    public void AddConstants(params (string Name, double Value)[] values)
+    public void AddConstants(params (string Name, IExpression Value)[] values)
     {
         foreach (var (name, value) in values)
             Constants[name] = value;

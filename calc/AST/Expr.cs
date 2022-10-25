@@ -9,27 +9,30 @@ internal static class Expr
     public static IExpression Constant(double value) => new ConstantExpression(value);
 
     public static IExpression Unary(IUnaryOperator op, IExpression a) =>
-        a is ConstantExpression ac
-            ? new ConstantExpression(op.Evaluate(ac.Value))
+        a is ConstantExpression
+            ? op.Evaluate(a)
             : new UnaryExpression(a, op);
 
     public static IExpression UnaryL(IUnaryOperatorL op, IExpression a, IExpression l) =>
-        a is ConstantExpression ac && l is ConstantExpression lc
-            ? new ConstantExpression(op.Evaluate(ac.Value, lc.Value))
+        a is ConstantExpression && l is ConstantExpression
+            ? op.Evaluate(a, l)
             : new UnaryExpressionL(a, l, op);
 
     public static IExpression UnaryU(IUnaryOperatorU op, IExpression a, IExpression u) =>
-        a is ConstantExpression ac && u is ConstantExpression uc
-            ? new ConstantExpression(op.Evaluate(ac.Value, uc.Value))
+        a is ConstantExpression && u is ConstantExpression
+            ? op.Evaluate(a, u)
             : new UnaryExpressionU(a, u, op);
 
     public static IExpression UnaryLU(IUnaryOperatorLU op, IExpression a, IExpression l, IExpression u) =>
-        a is ConstantExpression ac && l is ConstantExpression lc && u is ConstantExpression uc
-            ? new ConstantExpression(op.Evaluate(ac.Value, lc.Value, uc.Value))
+        a is ConstantExpression && l is ConstantExpression && u is ConstantExpression
+            ? op.Evaluate(a, l, u)
             : new UnaryExpressionLU(a, l, u, op);
 
     public static IExpression Binary(BinaryOperator op, IExpression a, IExpression b) =>
-        a is ConstantExpression ac && b is ConstantExpression bc
-            ? new ConstantExpression(op.Evaluate(ac.Value, bc.Value))
+        a is ConstantExpression && b is ConstantExpression
+            ? op.Evaluate(a, b)
             : new BinaryExpression(a, b, op);
+
+    public static IExpression Error(IExpression source, string message) => new ErrorExpression(message);
+    public static IExpression Error(IExpression source) => new ErrorExpression();
 }

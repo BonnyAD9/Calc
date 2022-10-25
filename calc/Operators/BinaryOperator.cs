@@ -1,12 +1,14 @@
-﻿namespace calc.Operators;
+﻿using calc.AST;
+
+namespace calc.Operators;
 
 internal class BinaryOperator
 {
     public string Name { get; init; }
     public int Precedence { get; init; }
-    public Func<double, double, double> Evaluate { get; init; }
+    public Func<IExpression, IExpression, IExpression> Evaluate { get; init; }
 
-    public BinaryOperator(string name, int precedence, Func<double, double, double> evaluate)
+    public BinaryOperator(string name, int precedence, Func<IExpression, IExpression, IExpression> evaluate)
     {
         Name = name;
         Precedence = precedence;

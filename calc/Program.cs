@@ -1,7 +1,7 @@
 ﻿using calc;
 using calc.Operators;
 
-// args = new[] { "sin^2(1)+cos^2(1)" };
+args = new[] { "sin^2(1)+cos^2(1)" };
 
 if (args.Length != 1)
 {
@@ -17,38 +17,38 @@ Lexer lex = new(tr);
 SymbolTable sym = new() { };
 
 sym.AddConstants(
-    ("pi", Math.PI),
-    ("e",  Math.E)
+    ("pi", Functions.Numeric(Math.PI)),
+    ("e",  Functions.Numeric(Math.E))
 );
 
 sym.AddUnary(
     // No index unary operators
-    new UnaryOperator("-",    20, a => -a),
-    new UnaryOperator("abs",  30, Math.Abs),
-    new UnaryOperator("sqrt", 30, Math.Sqrt),
+    new UnaryOperator("-",    20, Functions.Numeric(a => -a)),
+    new UnaryOperator("abs",  30, Functions.Numeric(Math.Abs)),
+    new UnaryOperator("sqrt", 30, Functions.Numeric(Math.Sqrt)),
 
     // Lower and upper index unary operators
-    new UnaryOperatorLU("log", 30, UnaryOperatorLU.MakeFun.UPower((a, l) => l.HasValue ? Math.Log(a, l.Value) : Math.Log10(a))),
+    new UnaryOperatorLU("log", 30, Functions.Log),
 
     // upper index unary operators
-    new UnaryOperatorU("ln",   30, UnaryOperatorU.MakeFun.Power(Math.Log)),
-    new UnaryOperatorU("lb",   30, UnaryOperatorU.MakeFun.Power(Math.Log2)),
-    new UnaryOperatorU("sin",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Sin,  Math.Asin)),
-    new UnaryOperatorU("cos",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Cos,  Math.Acos)),
-    new UnaryOperatorU("tan",  30, UnaryOperatorU.MakeFun.Goniometric(Math.Tan,  Math.Atan)),
-    new UnaryOperatorU("asin", 30, UnaryOperatorU.MakeFun.Goniometric(Math.Asin, Math.Sin)),
-    new UnaryOperatorU("acos", 30, UnaryOperatorU.MakeFun.Goniometric(Math.Acos, Math.Cos)),
-    new UnaryOperatorU("atan", 30, UnaryOperatorU.MakeFun.Goniometric(Math.Atan, Math.Tan))
+    new UnaryOperatorU("ln",   30, Functions.Power(Functions.Numeric((Func<double, double>)Math.Log))),
+    new UnaryOperatorU("lb",   30, Functions.Power(Functions.Numeric(Math.Log2))),
+    new UnaryOperatorU("sin",  30, Functions.Goniometric(Math.Sin,  Math.Asin)),
+    new UnaryOperatorU("cos",  30, Functions.Goniometric(Math.Cos,  Math.Acos)),
+    new UnaryOperatorU("tan",  30, Functions.Goniometric(Math.Tan,  Math.Atan)),
+    new UnaryOperatorU("asin", 30, Functions.Goniometric(Math.Asin, Math.Sin)),
+    new UnaryOperatorU("acos", 30, Functions.Goniometric(Math.Acos, Math.Cos)),
+    new UnaryOperatorU("atan", 30, Functions.Goniometric(Math.Atan, Math.Tan))
 );
 
 sym.AddBinary(
-    new("+",  10, (a, b) => a + b),
-    new("-",  10, (a, b) => a - b),
-    new("*",  20, (a, b) => a * b),
-    new("*-", 20, (a, b) => a * -b),
-    new("/",  20, (a, b) => a / b),
-    new("rt", 40, (a, b) => Math.Pow(b, 1 / a)),
-    new("^",  40, Math.Pow)
+    new("+",  10, Functions.Numeric((a, b) => a + b)),
+    new("-",  10, Functions.Numeric((a, b) => a - b)),
+    new("*",  20, Functions.Numeric((a, b) => a * b)),
+    new("*-", 20, Functions.Numeric((a, b) => a * -b)),
+    new("/",  20, Functions.Numeric((a, b) => a / b)),
+    new("rt", 40, Functions.Numeric((a, b) => Math.Pow(b, 1 / a))),
+    new("^",  40, Functions.Numeric(Math.Pow))
 );
 
 Parser par = new(lex, sym);
