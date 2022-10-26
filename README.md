@@ -48,6 +48,7 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 - `log_^` - logarithm (base 10 with no lower index)
 - `ln^` - natural logarithm
 - `lb^` - binary logarithm
+- `sum^_` - sum
 
 ### Binary operators
 - `+` - addition
@@ -57,12 +58,21 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 - `/` - division
 - `rt` - root (`2 rt a`=`sqrt(a)`)
 - `^` - power
+- `C` - combinations
+- `P` - variations
+
+### Postfix operators
+- `!` - factorial
 
 ### Indexing
 - `^` - upper index
 - `_` - lower index
 
 ## Upper index behaviour
+### Sum
+- upper limit of the sum (if not present, `1000` is default)
+- must be number or not present
+
 ### Logarithmic functions
 + `log`, `ln`, `lg`
 - `fun^1(a)` = `fun(a)`
@@ -76,6 +86,12 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 - `afun^-1(a)` = `fun(a)`
 
 ## Lower index behaviour
+### Sum
+- lower limit of the sum (if not present, `i=1` is default)
++ `a=b` - b is number, a is name of variable to change in the sum
++ `a` - a is variable to change in the sum, lower limit is 1
++ `b` - b is number, the default variable name is i
+
 ### log
 - `log_10(a)` = `log(a)`
 - `log_e(a)` = `ln(a)`
