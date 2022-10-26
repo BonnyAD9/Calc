@@ -1,7 +1,8 @@
 ﻿using calc;
 using calc.Operators;
 
-//args = new[] { "x=5;x+x*x" };
+//args = new[] { "x=5;x! +x*x" };
+//args = new[] { "5!" };
 
 if (args.Length != 1)
 {
@@ -50,6 +51,10 @@ sym.AddBinary(
     new("/",  20, Functions.Numeric((a, b) => a / b)),
     new("rt", 40, Functions.Numeric((a, b) => Math.Pow(b, 1 / a))),
     new("^",  40, Functions.Numeric(Math.Pow))
+);
+
+sym.AddPostfix(
+    new PostfixOperator("!", 30, Functions.Factorial)
 );
 
 Parser par = new(lex, sym);

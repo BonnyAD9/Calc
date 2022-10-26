@@ -38,4 +38,9 @@ internal static class Expr
     public static IExpression Error(IExpression source) => new ErrorExpression();
 
     public static IExpression Variable(string name) => new VariableExpression(name);
+
+    public static IExpression Postfix(PostfixOperator op, IExpression a) =>
+        a is ConstantExpression
+            ? op.Evaluate(a)
+            : new PostfixExpression(op, a);
 }

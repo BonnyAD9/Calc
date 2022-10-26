@@ -143,8 +143,15 @@ internal class Parser
 
     IExpression ParseBinaryExpression(int lp, IExpression le)
     {
-        if (Cur is not Token.Operator and not Token.Upper || !Symbols.HasBinary(CurStr))
+        if (Cur is not Token.Operator and not Token.Upper || (!Symbols.HasBinary(CurStr) && !Symbols.HasPostfix(CurStr)))
             return le;
+
+        if (Symbols.HasPostfix(CurStr))
+        {
+            var op = Symbols.Postfix[CurStr];
+            NextToken();
+            return ParseBinaryExpression(lp, Expr.Postfix(op, le));
+        }
 
         while (Cur != Token.Eof && Cur is Token.Operator or Token.Upper && Symbols.HasBinary(CurStr))
         {
@@ -266,7 +273,19 @@ internal class Parser
         return Expr.Null;
     }
 
-    int CurPrecedence() => Cur is Token.Operator or Token.Upper && Symbols.HasBinary(CurStr) ? Symbols.Binary[CurStr].Precedence : -1;
+    int CurPrecedence()
+    {
+        if (Cur is not Token.Operator and not Token.Upper)
+            return -1;
+
+        if (Symbols.HasBinary(CurStr))
+            return Symbols.Binary[CurStr].Precedence;
+        
+        if (Symbols.HasPostfix(CurStr))
+            return Symbols.Postfix[CurStr].Precedence;
+
+        return -1;
+    }
 
     Token NextToken() => _cur = _lexer.Next();
 }

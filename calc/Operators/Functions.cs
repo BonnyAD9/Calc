@@ -79,4 +79,18 @@ internal static class Functions
         (ConstantExpression cl, ConstantExpression cr) => Expr.Constant(cl.Value == cr.Value ? 1 : 0),
         (_, _) => Expr.Constant(0),
     };
+
+    public static IExpression Factorial(IExpression a)
+    {
+        if (a is not ConstantExpression ca)
+            return Expr.Error(a, "Factorial accepts only numbers");
+
+        double val = Math.Truncate(Math.Abs(ca.Value));
+
+        double r = 1;
+        for (double i = 2; i <= val; i++)
+            r *= i;
+
+        return Expr.Constant(r);
+    }
 }
