@@ -2,7 +2,7 @@
 using calc.Operators;
 
 //args = new[] { "x=5;x! +x*x" };
-//args = new[] { "5!" };
+args = new[] { "10C3" };
 
 if (args.Length != 1)
 {
@@ -49,6 +49,8 @@ sym.AddBinary(
     new("*",  20, Functions.Numeric((a, b) => a * b)),
     new("*-", 20, Functions.Numeric((a, b) => a * -b)),
     new("/",  20, Functions.Numeric((a, b) => a / b)),
+    new("C",  30, Functions.Combination),
+    new("P",  30, Functions.Variation),
     new("rt", 40, Functions.Numeric((a, b) => Math.Pow(b, 1 / a))),
     new("^",  40, Functions.Numeric(Math.Pow))
 );

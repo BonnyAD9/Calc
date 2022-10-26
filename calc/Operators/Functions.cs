@@ -80,6 +80,9 @@ internal static class Functions
         (_, _) => Expr.Constant(0),
     };
 
+    private static double Factorial(double n, double a = 1)
+        => n <= 1 ? a : Factorial(n - 1, a * n);
+
     public static IExpression Factorial(IExpression a)
     {
         if (a is not ConstantExpression ca)
@@ -87,10 +90,31 @@ internal static class Functions
 
         double val = Math.Truncate(Math.Abs(ca.Value));
 
-        double r = 1;
-        for (double i = 2; i <= val; i++)
-            r *= i;
+        return Expr.Constant(Factorial(val));
+    }
 
-        return Expr.Constant(r);
+    private static double Variation(double n, double c, double a = 1)
+        => n <= 1 || c <= 0 ? a : Variation(n - 1, c - 1, a * n); 
+
+    public static IExpression Combination(IExpression l, IExpression r)
+    {
+        if (l is not ConstantExpression cl || r is not ConstantExpression cr)
+            return Expr.Error(l is ConstantExpression ? r : l, "Combination accepts only numbers");
+
+        double max = Math.Truncate(Math.Abs(cr.Value));
+        double min = Math.Truncate(Math.Abs(cl.Value - max));
+        
+        if (min > max)
+            (max, min) = (min, max);
+
+        return Expr.Constant(Variation(Math.Truncate(Math.Abs(cl.Value)), min) / Factorial(min));
+    }
+
+    public static IExpression Variation(IExpression l, IExpression r)
+    {
+        if (l is not ConstantExpression cl || r is not ConstantExpression cr)
+            return Expr.Error(l is ConstantExpression ? r : l, "Variation accepts only numbers");
+        
+        return Expr.Constant(Variation(Math.Truncate(Math.Abs(cl.Value)), Math.Truncate(Math.Abs(cr.Value))));
     }
 }
