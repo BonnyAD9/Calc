@@ -1,6 +1,11 @@
 # Changelog
 ## v1.2.0
 - Variables
+- Equals sign (`a=b`)
+- Factorial (`a!`)
+- Combinations (`a C b`, `(a b)`)
+- Variations (`a P b`)
+- Sum (`sum_(i=a)^b(i*2-1)`)
 
 ## v1.1.0
 - New unary operators: `atan`, `log`, `ln`, `lb`
