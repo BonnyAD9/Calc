@@ -2,7 +2,7 @@
 using calc.Operators;
 
 //args = new[] { "x=5;x! +x*x" };
-// args = new[] { "(10 3)" };
+//args = new[] { "x=10;sum_n^x(2*n-1)=x^2" };
 
 if (args.Length != 1)
 {
@@ -30,6 +30,7 @@ sym.AddUnary(
 
     // Lower and upper index unary operators
     new UnaryOperatorLU("log", 30, Functions.Log),
+    new UnaryOperatorLU("sum", 20, Functions.Sum),
 
     // upper index unary operators
     new UnaryOperatorU("ln",   30, Functions.Power(Functions.Numeric((Func<double, double>)Math.Log))),

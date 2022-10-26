@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using calc.Operators;
 
 namespace calc.AST;

@@ -77,7 +77,7 @@ internal static class Functions
     public static IExpression Equals(IExpression l, IExpression r) => (l, r) switch
     {
         (ConstantExpression cl, ConstantExpression cr) => Expr.Constant(cl.Value == cr.Value ? 1 : 0),
-        (_, _) => Expr.Constant(0),
+        _ => Expr.Error(l, "Cannot compare the values"),
     };
 
     private static double Factorial(double n, double a = 1)
@@ -117,4 +117,51 @@ internal static class Functions
         
         return Expr.Constant(Variation(Math.Truncate(Math.Abs(cl.Value)), Math.Truncate(Math.Abs(cr.Value))));
     }
+
+    private static IExpression Sum(IEnumerable<double> insert, string name, IExpression a)
+    {
+        double sum = 0;
+        Context c = new();
+        foreach (var i in insert)
+        {
+            c.SetVariable(name, Expr.Constant(i));
+            var e = a.GetValue(c);
+            if (e is not ConstantExpression ce)
+                return Expr.Error(e, "Can sum only numbers");
+            sum += ce.Value;
+        }
+
+        return Expr.Constant(sum);
+    }
+
+    public static IEnumerable<double> Range(double start, double end)
+    {
+        for (; start <= end; start++)
+            yield return start;
+        yield break;
+    }
+
+    const int sumLim = 1000;
+
+    public static IExpression Sum(IExpression a, IExpression l, IExpression u) => (l, u) switch
+    {
+        (NullExpressoin, NullExpressoin) => Sum(Range(1, sumLim), "i", a),
+        (NullExpressoin, ConstantExpression ce) => Sum(Range(1, ce.Value), "i", a),
+        (ConstantExpression ce, NullExpressoin) => Sum(Range(ce.Value, ce.Value + sumLim), "i", a),
+        (VariableExpression va, NullExpressoin) => Sum(Range(1, sumLim), va.Name, a),
+        (VariableExpression va, ConstantExpression ca) => Sum(Range(1, ca.Value), va.Name, a),
+        (BinaryExpression
+        {
+            Operator: { Name: "=" },
+            Left: VariableExpression name,
+            Right: ConstantExpression start 
+        }, ConstantExpression end) => Sum(Range(start.Value, end.Value), name.Name, a),
+        (BinaryExpression
+        {
+            Operator: { Name: "=" },
+            Left: VariableExpression name,
+            Right: ConstantExpression start,
+        }, NullExpressoin) => Sum(Range(start.Value, start.Value + sumLim), name.Name, a),
+        _ => Expr.Error(l, "Invalid expression in upper or lower index of sum"),
+    };
 }
