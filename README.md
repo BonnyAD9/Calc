@@ -28,7 +28,7 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 - `^` after operator name means that it supports upper index
 
 ### Brackets
-- use brackets (`(` and `)`) to guide the parser
+- use brackets (`(` and `)`) to guide the parser or to create combinations (`(a b)`)
 - use `[` and `]` for absolute value and to guide the parser
 
 ### Constants
@@ -97,3 +97,8 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 - `log_e(a)` = `ln(a)`
 - `log_2(a)` = `lb(a)`
 - `log_b(a)` = logarithm of base b of a
+
+## Reserved names
+- names that shouldn't be used as variable names, because in the future they may have different meaning
+
+A, D, E, H, I, N, Q, R, Z, inf, nan, int, 
