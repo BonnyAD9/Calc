@@ -101,4 +101,4 @@ so `log_3^-1(9)` is the same as `(log_3(9))^-1`, however `log_3(9)^-1` is the sa
 ## Reserved names
 - names that shouldn't be used as variable names, because in the future they may have different meaning
 
-A, D, E, H, I, N, Q, R, Z, inf, nan, int, 
+A, D, E, H, I, N, Q, R, Z, d, i, j, inf, nan, int, print
