@@ -2,7 +2,7 @@
 using calc.Operators;
 
 //args = new[] { "x=5;x! +x*x" };
-args = new[] { "10C3" };
+// args = new[] { "(10 3)" };
 
 if (args.Length != 1)
 {

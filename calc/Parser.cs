@@ -107,11 +107,25 @@ internal class Parser
         if (e == Expr.Null)
             return Expr.Null;
 
+        if (Cur == Token.CloseBracket)
+        {
+            NextToken();
+            return e;
+        }
+
+        var r = ParseExpression();
+        if (r == Expr.Null)
+            return Expr.Null;
+
         if (Cur != Token.CloseBracket)
             return Error(Severity.Error, "Expected ')'");
 
         NextToken();
-        return e;
+
+        if (!Symbols.HasBinary("C"))
+            return Error(Severity.Error, "Combinations are not supported");
+
+        return Expr.Binary(Symbols.Binary["C"], e, r);
     }
 
     IExpression ParseAbsExpression()
